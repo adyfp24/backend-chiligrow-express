@@ -18,31 +18,31 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.BIGINT
+      type: DataTypes.BIGINT
     },
     nama_pengepul: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     lokasi_pengepul: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     kontak_pengepul: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     jenis_cabai_diterima: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     kapasitas_pengepulan: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     penawaran_harga: {
       allowNull: false,
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
   }, {
     sequelize,
