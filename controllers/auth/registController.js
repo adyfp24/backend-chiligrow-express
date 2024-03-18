@@ -1,8 +1,8 @@
-const User = require('../../models').User;
+const authService = require('../../services/authService');
 
 const register = async (req, res) => {
     try {
-        const{
+        const userData = {
             username,
             email,
             password,
@@ -11,14 +11,7 @@ const register = async (req, res) => {
             role
         } = req.body;
 
-        const newUser = await User.create({
-            username,
-            email,
-            password,
-            no_hp,
-            alamat,
-            role
-        });
+        const newUser = await authService.registerService(userData);
 
         return res.status(200).json({
             success: true,
@@ -28,7 +21,7 @@ const register = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: 'internal server error',
+            message: error.message,
         })
     }
 }
