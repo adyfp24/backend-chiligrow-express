@@ -1,41 +1,35 @@
-//npm install websocket
-var WebSocketServer = require('websocket').server;
-var http = require('http');
+const express = require('express');
+const http = require('http');
+const WebSocket = require('websocket');
 
-var server = http.createServer(function(request, response) {
-    console.log((new Date()) + ' Received request for ' + request.url);
-    response.writeHead(404);
-    response.end();
-});
-server.listen(5000, function() {
-    console.log((new Date()) + ' Server is listening on port 5000');
-});
-
-wsServer = new WebSocketServer({
+const app = express();
+const server = http.createServer(app);
+const wsServer = new WebSocket.server({
     httpServer: server,
     autoAcceptConnections: false
 });
 
 function originIsAllowed(origin) {
+  // Sesuaikan dengan logika Anda untuk memeriksa apakah asal diperbolehkan
   return true;
 }
 
 wsServer.on('request', function(request) {
-    console.log(request)
+    console.log((new Date()) + ' Connection request from origin ' + request.origin);
+
     if (!originIsAllowed(request.origin)) {
       request.reject();
       console.log((new Date()) + ' Connection from origin ' + request.origin + ' rejected.');
       return;
     }
     
-    var connection = request.accept(null, request.origin)
+    const connection = request.accept(null, request.origin);
     console.log((new Date()) + ' Connection accepted.');
 
     connection.on('message', function(message) {
         if (message.type === 'utf8') {
             console.log('Received Message: ' + message.utf8Data);
-            //connection.sendUTF(message.utf8Data); this resend the reseived message, instead of it i will send a custom message. hello from nodejs
-            connection.sendUTF("Hello from node.js");
+            connection.sendUTF("Hello from Node.js");
         }
         else if (message.type === 'binary') {
             console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
@@ -43,9 +37,13 @@ wsServer.on('request', function(request) {
         }
     });
 
-
-
     connection.on('close', function(reasonCode, description) {
         console.log((new Date()) + ' Peer ' + connection.remoteAddress + ' disconnected.');
     });
+});
+
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, () => {
+  console.log((new Date()) + ' Server is listening on port ' + PORT);
 });
