@@ -10,7 +10,6 @@ const wsServer = new WebSocket.server({
 });
 
 function originIsAllowed(origin) {
-  // Sesuaikan dengan logika Anda untuk memeriksa apakah asal diperbolehkan
   return true;
 }
 
@@ -28,7 +27,7 @@ wsServer.on('request', function(request) {
 
     connection.on('message', function(message) {
         if (message.type === 'utf8') {
-            console.log('Received Message: ' + message.utf8Data);
+            console.log('Data sensor kelembapan tanah: ' + message.utf8Data);
             connection.sendUTF("Hello from Node.js");
         }
         else if (message.type === 'binary') {
