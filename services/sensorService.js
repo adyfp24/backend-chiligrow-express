@@ -1,8 +1,9 @@
 const { Sensor } = require('../models');
 
-const readHumidity = async () => {
+const readHumidity = async (id) => {
     try {
         const lastSensorData = await Sensor.findOne({
+            where: {id_sensor : id},
             order: [['createdAt', 'DESC']]
         });
         return lastSensorData;
