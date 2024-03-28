@@ -13,7 +13,7 @@ function originIsAllowed(origin) {
   return true;
 }
 
-const sensorController = require('./controllers/penyiramanController');
+const sensorController = require('./controllers/sensorController');
 
 wsServer.on('request', function(request) {
     console.log((new Date()) + ' Connection request from origin ' + request.origin);
@@ -34,7 +34,7 @@ wsServer.on('request', function(request) {
     });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 server.listen(PORT, () => {
   console.log((new Date()) + ' Server is listening on port ' + PORT);
