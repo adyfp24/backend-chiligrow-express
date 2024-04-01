@@ -1,32 +1,27 @@
 const express = require('express');
-const http = require('http');
-const WebSocket = require('websocket');
 const bodyParser = require('body-parser');
-const { Sensor } = require('./models');
-
+const cors = require('cors');
 const app = express();
 
 const authRoute = require('./routes/authRoute');
 const sensorRoute = require('./routes/sensorRoute');
+const simulasiRoute = require('./routes/simulasiRoute');
 
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
+app.use(bodyParser.json());
 
-// app.post('/api/sensor-data', (req, res) => {
-//   const kelembapan = parseInt(req.body);
+// const Sensor = require('./models').Sensor;
+// app.post('/api/sensordata', (req, res) => {
+//   const kelembapan = req.body;
 //   console.log("Sensor data from ESP8266:", kelembapan);
-//   if (!isNaN(kelembapan)) {
-//     Sensor.update(
-//       { nilai_kelembapan: kelembapan },
-//       { where: { id_sensor: 1 } }
-//     );
-//     res.send('Received and processed sensor data');
-//   } else {
-//     res.status(400).send('Invalid sensor data');
-//   }
+//   res.sendStatus(200); 
 // });
 
-app.use('api/v1', authRoute);
-app.use('api/v1', sensorRoute);
+app.use('/api',authRoute);
+app.use('/api',sensorRoute);
+app.use('/api',simulasiRoute);
 
 const PORT = process.env.PORT || 4000;
 
@@ -34,6 +29,8 @@ app.listen(PORT, () => {
   console.log((new Date()) + ' Server is listening on port ' + PORT);
 });
 
+// const http = require('http');
+// const WebSocket = require('websocket');
 // const server = http.createServer(app);
 // const wsServer = new WebSocket.server({
 //     httpServer: server,

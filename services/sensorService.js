@@ -1,4 +1,4 @@
-const { Sensor } = require('../models');
+const { Sensor } = require('../models').Sensor;
 
 const readHumidity = async (id) => {
     try {
@@ -14,11 +14,10 @@ const readHumidity = async (id) => {
 
 const updateHumidity = async (id, nilai_kelembapan) => {
     try {
-        const sensorData = await Sensor.findByPk(id);
-        if (!sensorData) {
-          throw new Error('Sensor data not found');
-        }
-        await sensorData.update({ nilai_kelembapan });
+        const sensorData = Sensor.update(
+            { nilai_kelembapan: nilai_kelembapan },
+            { where: { id_sensor: id } }
+          );
         return sensorData;
       } catch (error) {
         throw new Error('Failed to update sensor data');
