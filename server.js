@@ -19,9 +19,9 @@ app.use(bodyParser.json());
 //   res.sendStatus(200); 
 // });
 
-app.use('/api',authRoute);
-app.use('/api',sensorRoute);
-app.use('/api',simulasiRoute);
+app.use('/api/v1',authRoute);
+app.use('/api/v1',sensorRoute);
+app.use('/api/v1',simulasiRoute);
 
 const PORT = process.env.PORT || 4000;
 
