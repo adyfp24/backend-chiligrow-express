@@ -15,13 +15,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   JenisBibit.init({
     id_jenis_bibit: {
-      type: Sequelize.BIGINT,
+      type: DataTypes.BIGINT,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
     jenis_bibit: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false
     },
   }, {

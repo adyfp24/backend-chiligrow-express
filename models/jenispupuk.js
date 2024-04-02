@@ -18,10 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull:false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.BIGINT
+      type: DataTypes.BIGINT
     },
     jenis_pupuk: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
   }, {
     sequelize,

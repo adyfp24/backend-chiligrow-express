@@ -18,26 +18,26 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: Sequelize.BIGINT
+      type: DataTypes.BIGINT
     },
     luas_lahan: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     kuantitas_pupuk: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     debit_air: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     jumlah_bibit: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     jenis_pupuk_id: {
-      type: Sequelize.BIGINT,
+      type: DataTypes.BIGINT,
       allowNull: false,
       references:{
         model:'Jenis_pupuks',
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     jenis_bibit_id: {
-      type: Sequelize.BIGINT,
+      type: DataTypes.BIGINT,
       allowNull: false,
       references:{
         model:'Jenis_bibits',
