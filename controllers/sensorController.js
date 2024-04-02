@@ -17,9 +17,15 @@ const readSensor = async (req, res) => {
 
 const updateSensor = async (req, res) => {
     try {
-        const kelembapan = parseInt(req.body);
-        const newKelembapan = sensorService.updateHumidity(1, kelembapan);
-        res.send(newKelembapan);
+        const kelembapan = parseInt(req.body.kelembapan);
+        const newKelembapan = await sensorService.updateHumidity(1, kelembapan);
+        if(newKelembapan){
+            res.status(200).json({
+                success:true,
+                message: "data sensor berhasil di update",
+                data: kelembapan,
+            });
+        }
     } catch (error) {
         console.error('Error saving/updating sensor data:', error);
     }

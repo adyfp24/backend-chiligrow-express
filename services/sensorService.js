@@ -1,4 +1,4 @@
-const { Sensor } = require('../models').Sensor;
+const Sensor = require('../models').Sensor;
 
 const readHumidity = async (id) => {
     try {
@@ -14,7 +14,7 @@ const readHumidity = async (id) => {
 
 const updateHumidity = async (id, nilai_kelembapan) => {
     try {
-        const sensorData = Sensor.update(
+        const sensorData = await Sensor.update(
             { nilai_kelembapan: nilai_kelembapan },
             { where: { id_sensor: id } }
           );
