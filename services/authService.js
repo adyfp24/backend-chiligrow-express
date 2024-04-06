@@ -19,7 +19,7 @@ const loginService = async (username, password) => {
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (isPasswordValid) {
-            const apiToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '30m' });
+            const apiToken = jwt.sign({ id: user.id_user }, process.env.JWT_SECRET, { expiresIn: '30m' });
             return {
                 success: true,
                 message: 'Login sukses',
@@ -39,8 +39,14 @@ const logoutService = async () => {
 
 }
 
+const profileService = async (id_user) => {
+    const userData = await User.findOne({ where: { id_user: id_user } });
+    return userData;
+}
+
 module.exports = {
     registerService,
     loginService,
-    logoutService
+    logoutService,
+    profileService
 }

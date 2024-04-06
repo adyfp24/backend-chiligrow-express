@@ -17,13 +17,21 @@ const createSimulasi = (req, res) => {
         }else if(jenis_bibit == "merah"){
             var jenis_pupuk = "pupuk kompos";
         };
+        const dataSimulasi = {
+            luas_lahan,
+            jenis_bibit,
+            jumlah_bibit,
+            kuantitas_pupuk,
+            debit_air,
+            jenis_pupuk
+        };
         console.log('luas lahan :', luas_lahan, 'meter');
         console.log('jumlah bibit :', jumlah_bibit, 'bibit');
         console.log('kuantitas pupuk :', kuantitas_pupuk, 'kg');
         console.log('debit air :', debit_air, 'liter');
         console.log('jenis pupuk :', jenis_pupuk);
         console.log('jenis bibit :', jenis_bibit);
-        res.status(200).json({ success: true });
+        res.status(200).json({ success: true, message:"data simulasi berhasil dbuat", data:dataSimulasi});
     } catch (error) {
         
     }
