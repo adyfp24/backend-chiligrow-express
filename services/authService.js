@@ -1,6 +1,6 @@
 const User = require('../models').User;
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const utilsToken = require('../utils/signToken');
 
 const registerService = async (userData) => {
     const hashedPassword = await bcrypt.hash(userData.password, 10);
@@ -19,7 +19,7 @@ const loginService = async (username, password) => {
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (isPasswordValid) {
-            const apiToken = jwt.sign({ id: user.id_user }, process.env.JWT_SECRET, { expiresIn: '30m' });
+            const apiToken = utilsToken.generateJWT(user.id_user);
             return {
                 success: true,
                 message: 'Login sukses',
