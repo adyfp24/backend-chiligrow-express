@@ -41,6 +41,14 @@ module.exports = {
           key: 'id_jenis_bibit'
         }
       },
+      user_id: {
+        type: Sequelize.BIGINT,
+        allowNull: false,
+        references:{
+          model:'Users',
+          key: 'id_user'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

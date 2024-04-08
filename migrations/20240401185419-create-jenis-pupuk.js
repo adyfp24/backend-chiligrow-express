@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.BIGINT
       },
       jenis_pupuk: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

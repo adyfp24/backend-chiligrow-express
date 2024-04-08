@@ -2,16 +2,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Jenis_Bibits', {
-      id_jenis_bibit: {
+    await queryInterface.createTable('Jadwal_Pemupukans', {
+      id_jadwal_pemupukan: {
         type: Sequelize.BIGINT,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      jenis_bibit: {
-        type: Sequelize.STRING,
+      selang_hari: {
+        type: Sequelize.INTEGER,
         allowNull: false
+      },
+      selang_jam: {
+        type: Sequelize.TIME,
+        allowNull: false
+      },
+      user_id: {
+        type: Sequelize.BIGINT,
+        allowNull: false,
+        references:{
+          model:'Users',
+          key: 'id_user'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -24,6 +36,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Jenis_Bibits');
+    await queryInterface.dropTable('Jadwal_Pemupukans');
   }
 };
