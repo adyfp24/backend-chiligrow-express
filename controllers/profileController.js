@@ -1,6 +1,6 @@
-const authService = require('../../services/authService');
+const profileService = require('../services/profileService');
 
-const profile = async (req, res) => {
+const getProfile = async (req, res) => {
     try {
         const user = req.user;
         if (!user) {
@@ -10,7 +10,7 @@ const profile = async (req, res) => {
             });
         }
         const id_user = user.id;
-        const userData = await authService.profileService(id_user);
+        const userData = await profileService.rProfileService(id_user);
 
         res.status(200).json({
             success: true,
@@ -27,6 +27,11 @@ const profile = async (req, res) => {
     }
 }
 
+const updateProfile = async (req, res) => {
+
+}
+
 module.exports = {
-    profile
+    getProfile,
+    updateProfile
 }

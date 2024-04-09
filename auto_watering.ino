@@ -3,7 +3,7 @@
 #include <BlynkSimpleEsp8266.h>
 #define BLYNK_PRINT Serial
         
-char auth[] = "bV6v5cwR-kINmqKkbgP8uYQTXIgQoWBs";  
+char auth[] = "bV6v5cwR-kINmqKkbgP8uYQXIgQoWBs";  
 
 const int moisturePin = A0;          
 const int motorPin = D0;

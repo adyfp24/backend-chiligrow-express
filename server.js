@@ -7,6 +7,7 @@ const schedule = require('node-schedule');
 const authRoute = require('./routes/authRoute');
 const sensorRoute = require('./routes/sensorRoute');
 const simulasiRoute = require('./routes/simulasiRoute');
+const profileRoute = require('./routes/profileRoute');
 
 schedule.scheduleJob('*/2 * * * *', ()=>{
   console.log('ini test penjadwalan');
@@ -20,6 +21,7 @@ app.use(bodyParser.json());
 app.use('/api/v1',authRoute);
 app.use('/api/v1',sensorRoute);
 app.use('/api/v1',simulasiRoute);
+app.use('/api/v1',profileRoute);
 
 const PORT = process.env.PORT || 4000;
 

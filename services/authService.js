@@ -39,11 +39,6 @@ const logoutService = async () => {
 
 }
 
-const profileService = async (id_user) => {
-    const userData = await User.findOne({ where: { id_user: id_user } });
-    return userData;
-}
-
 module.exports = {
     registerService,
     loginService,
