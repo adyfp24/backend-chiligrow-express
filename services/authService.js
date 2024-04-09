@@ -43,5 +43,4 @@ module.exports = {
     registerService,
     loginService,
     logoutService,
-    profileService
 } 
