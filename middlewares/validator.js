@@ -2,8 +2,9 @@ const { body, validationResult } = require('express-validator');
 const userValidationRules = () => {
   return [
     body('username').notEmpty().withMessage('Username tidak boleh kosong'),
-    body('email').isEmail().withMessage('Email tidak valid'),
-    body('password').isLength({ min: 6 }).withMessage('Password minimal 6 karakter'),
+    body('email').notEmpty().isEmail().withMessage('Email tidak valid'),
+    body('password').notEmpty().isLength({ min: 1 }).withMessage('Password minimal 6 karakter'),
+    body('alamat').notEmpty().withMessage('Alamat tidak boleh kosong'),
   ]
 }
 

@@ -6,7 +6,7 @@ const registController = require('../controllers/auth/registController');
 const loginController = require('../controllers/auth/loginController');
 const logoutController = require('../controllers/auth/logoutController');
 
-router.post('/register', registController.register);
+router.post('/register', userValidationRules(), validate, registController.register);
 router.post('/login', loginController.login);
 router.post('/logout', logoutController.logout);
 
