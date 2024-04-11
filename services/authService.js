@@ -3,9 +3,18 @@ const bcrypt = require('bcrypt');
 const utilsToken = require('../utils/signToken');
 
 const registerService = async (userData) => {
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    const newUser = await User.create({ ...userData, password: hashedPassword });
-    return newUser;
+    try {
+        const isUsernameExist = await User.findOne({where: {username: userData.username}});
+        if(isUsernameExist){
+            return { success: false, message: 'username sudah digunakan' };
+        }
+        const hashedPassword = await bcrypt.hash(userData.password, 10);
+        const newUser = await User.create({ ...userData, password: hashedPassword });
+        return newUser;
+    } catch (error) {
+        console.error(error);
+        return { success: false, message: 'Internal server error' };
+    }
 }
 
 const loginService = async (username, password) => {
