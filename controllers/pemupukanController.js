@@ -1,5 +1,4 @@
 const pemupukanService = require('../services/pemupukanService');
-const nodeSchedule = require('node-schedule');
 
 const pompaOn = () => {
 
@@ -27,6 +26,7 @@ const addJadwal = async (req, res) => {
         }
         const newJadwal = await pemupukanService.cJadwalService(dataJadwal);
         if(newJadwal){
+            pemupukanService.scheduleTask(selang_hari, selang_jam);
             res.status(201).json({
                 success: true,
                 message: 'Jadwal pemupukan berhasil ditambahkan',
@@ -40,8 +40,7 @@ const addJadwal = async (req, res) => {
             message: 'Terjadi kesalahan dalam server',
         });
     }
-
-}
+};
 
 const deleteJadwal = () => {
 

@@ -10,9 +10,9 @@ const simulasiRoute = require('./routes/simulasiRoute');
 const profileRoute = require('./routes/profileRoute');
 const pemupukanRoute = require('./routes/pemupukanRoute');
 
-schedule.scheduleJob('*/2 * * * *', ()=>{
-  console.log('ini test penjadwalan');
-});
+
+
+
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
