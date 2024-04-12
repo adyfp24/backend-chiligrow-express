@@ -11,37 +11,42 @@ const cJadwalService = async (dataJadwal) => {
 }
 
 const scheduleTask = (selangHari, selangJam) => {
-    const rule = new schedule.RecurrenceRule();
-    
-    const [hour, minute, second] = selangJam.split(':').map(Number);
+    try {
+        const rule = new schedule.RecurrenceRule();
+        
+        const [hour, minute, second] = selangJam.split(':').map(Number);
 
-    rule.hour = hour;
-    rule.minute = minute; 
-    rule.second = second || 0; 
+        rule.hour = hour;
+        rule.minute = minute; 
+        rule.second = second || 0; 
 
-    rule.dayOfWeek = null; 
-    rule.interval = selangHari; 
+        rule.dayOfWeek = null; 
+        rule.interval = selangHari; 
 
-    const now = new Date();
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
+        const now = new Date();
+        const currentHour = now.getHours();
+        const currentMinute = now.getMinutes();
 
-    if (currentHour > hour || (currentHour === hour && currentMinute > minute)) {
-        now.setDate(now.getDate() + 1);
+        if (currentHour > hour || (currentHour === hour && currentMinute > minute)) {
+            now.setDate(now.getDate() + 1);
+        }
+
+        const firstSchedule = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            hour,
+            minute,
+            second || 0
+        );
+
+        schedule.scheduleJob(firstSchedule, () => {
+            console.log('Penjadwalan berhasil sesuai waktu yang ditentukan');
+        });
+    } catch (error) {
+        console.error('Failed to schedule task:', error);
+        throw new Error('Failed to scheduling task');
     }
-
-    const firstSchedule = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        hour,
-        minute,
-        second || 0
-    );
-
-    schedule.scheduleJob(firstSchedule, () => {
-        console.log('Penjadwalan berhasil sesuai waktu yang ditentukan');
-    });
 };
 
 
