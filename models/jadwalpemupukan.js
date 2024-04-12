@@ -39,6 +39,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'JadwalPemupukan',
+    tableName: 'Jadwal_Pemupukans'
   });
   return JadwalPemupukan;
 };

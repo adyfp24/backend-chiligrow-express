@@ -33,7 +33,11 @@ const createSimulasi = (req, res) => {
         console.log('jenis bibit :', jenis_bibit);
         res.status(200).json({ success: true, message:"data simulasi berhasil dbuat", data:dataSimulasi});
     } catch (error) {
-        
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal Server Error'
+        });
     }
 }
 

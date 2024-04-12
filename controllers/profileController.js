@@ -9,7 +9,7 @@ const getProfile = async (req, res) => {
                 message: 'Anda tidak terautentikasi',
             });
         }
-        const id_user = user.id;
+        const id_user = user.id_user;
         const userData = await profileService.rProfileService(id_user);
 
         res.status(200).json({
@@ -36,7 +36,7 @@ const updateProfile = async (req, res) => {
                 message: 'Anda tidak terautentikasi',
             });
         }
-        const id_user = user.id;
+        const id_user = user.id_user;
         const { username, email, alamat, no_hp } = req.body;
         
         const currentUserData = await profileService.rProfileService(id_user);

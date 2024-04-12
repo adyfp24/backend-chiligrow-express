@@ -8,6 +8,7 @@ const authRoute = require('./routes/authRoute');
 const sensorRoute = require('./routes/sensorRoute');
 const simulasiRoute = require('./routes/simulasiRoute');
 const profileRoute = require('./routes/profileRoute');
+const pemupukanRoute = require('./routes/pemupukanRoute');
 
 schedule.scheduleJob('*/2 * * * *', ()=>{
   console.log('ini test penjadwalan');
@@ -22,6 +23,7 @@ app.use('/api/v1',authRoute);
 app.use('/api/v1',sensorRoute);
 app.use('/api/v1',simulasiRoute);
 app.use('/api/v1',profileRoute);
+app.use('/api/v1',pemupukanRoute);
 
 const PORT = process.env.PORT || 4000;
 

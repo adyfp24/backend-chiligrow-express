@@ -5,6 +5,7 @@ const userValidationRules = () => {
     body('email').notEmpty().isEmail().withMessage('Email tidak valid'),
     body('password').notEmpty().isLength({ min: 1 }).withMessage('Password minimal 6 karakter'),
     body('alamat').notEmpty().withMessage('Alamat tidak boleh kosong'),
+    body('no_hp').notEmpty().withMessage('Nomor HP tidak boleh kosong'),
   ]
 }
 
