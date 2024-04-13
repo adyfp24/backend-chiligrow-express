@@ -100,8 +100,32 @@ const deleteJadwal = () => {
 
 }
 
-const updateJadwal = () => {
+const updateJadwal = async (req, res) => {
+    try {
+        const id_jadwal = req.params.id_jadwal; 
+        const updatedData = { selang_hari, selang_jam} = req.body;
 
+        const updatedJadwal = await pemupukanService.uJadwalService(id_jadwal, updatedData);
+
+        if (updatedJadwal) {
+            res.status(200).json({
+                success: true,
+                message: 'Data jadwal berhasil diperbarui',
+                data: updatedData,
+            });
+        } else {
+            res.status(400).json({
+                success: false,
+                message: 'data jadwal gagal diupdate',
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Terjadi kesalahan dalam server',
+        });
+    }
 }
 
 module.exports = {

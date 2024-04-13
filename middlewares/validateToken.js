@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
                 message: 'Unauthorized'
             });
         }
-
+        
         req.user = apiToken; 
         next();
     } catch (error) {

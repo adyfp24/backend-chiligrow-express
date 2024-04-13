@@ -76,9 +76,22 @@ const rAllJadwalService = async (user_id) => {
     }
 }
 
+const uJadwalService = async (id_jadwal, dataJadwal) => {
+    try {
+        const updatedJadwal = await JadwalPemupukan.update(
+            dataJadwal,
+            {where: {id_jadwal_pemupukan: id_jadwal}}
+        );
+        return updatedJadwal;
+    } catch (error) {
+        throw new Error('Failed to update new jadwal pemupukan');
+    }
+}
+
 module.exports = {
     cJadwalService,
     rJadwalService,
     rAllJadwalService,
+    uJadwalService,
     scheduleTask
 }
