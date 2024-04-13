@@ -50,12 +50,30 @@ const scheduleTask = (selangHari, selangJam) => {
 };
 
 
-const rJadwalService = async (req, res) => {
-
+const rJadwalService = async (user_id) => {
+    try {
+        const dataJadwal = await JadwalPemupukan.findOne({
+            where: {user_id: user_id},
+            order: [['createdAt', 'DESC']]
+        })
+        return dataJadwal;
+    } catch (error) {
+        console.error('Failed to schedule task:', error);
+        throw new Error('Failed to scheduling task');
+    }
 }
 
-const rAllJadwalService = async (req, res) => {
-
+const rAllJadwalService = async (user_id) => {
+    try {
+        const allDataJadwal = await JadwalPemupukan.findAll({
+            where: {user_id: user_id},
+            order: [['createdAt', 'DESC']]
+        })
+        return allDataJadwal;
+    } catch (error) {
+        console.error('Failed to schedule task:', error);
+        throw new Error('Failed to scheduling task');
+    }
 }
 
 module.exports = {
