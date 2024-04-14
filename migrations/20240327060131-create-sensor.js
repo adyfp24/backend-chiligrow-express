@@ -13,6 +13,14 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull:false
       },
+      user_id: {
+        type: Sequelize.BIGINT,
+        allowNull: false,
+        references:{
+          model:'Users',
+          key: 'id_user'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

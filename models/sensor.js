@@ -24,6 +24,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.FLOAT, 
       allowNull: false 
     },
+    user_id: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+      references:{
+        model:'Users',
+        key: 'id_user'
+      }
+    },
   }, {
     sequelize,
     modelName: 'Sensor',
