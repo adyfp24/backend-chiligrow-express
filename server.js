@@ -10,10 +10,6 @@ const simulasiRoute = require('./routes/simulasiRoute');
 const profileRoute = require('./routes/profileRoute');
 const pemupukanRoute = require('./routes/pemupukanRoute');
 
-
-
-
-
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());

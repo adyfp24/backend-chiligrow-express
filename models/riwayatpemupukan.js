@@ -3,50 +3,42 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class JadwalPemupukan extends Model {
+  class RiwayatPemupukan extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      JadwalPemupukan.belongsTo(models.User, {
-        foreignKey: 'user_id',
-        as: 'user'
-      });
-      JadwalPemupukan.hasMany(models.RiwayatPemupukan, {
+      RiwayatPemupukan.belongsTo(models.JadwalPemupukan, {
         foreignKey: 'jadwal_pemupukan_id',
-        as: 'riwayat_pemupukan'
+        as: 'jadwal_pemupukan'
       });
     }
   }
-  JadwalPemupukan.init({
-    id_jadwal_pemupukan: {
+  RiwayatPemupukan.init({
+    id_riwayat_pemupukan: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.BIGINT
     },
-    selang_hari: {
-      type: DataTypes.INTEGER,
+    waktu_pemupukan: {
+      type: DataTypes.DATE,
       allowNull: false,
     },
-    selang_jam: {
-      type: DataTypes.TIME,
-      allowNull: false,
-    },
-    user_id: {
+    jadwal_pemupukan_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
       references:{
-        model:'Users',
-        key: 'id_user'
+        model:'Jadwal_Pemupukans',
+        key: 'id_jadwal_pemupukan'
       }
-    },
+    }
   }, {
     sequelize,
-    modelName: 'JadwalPemupukan',
-    tableName: 'Jadwal_Pemupukans'
+    modelName: 'RiwayatPemupukan',
+    tableName: 'Riwayat_Pemupukans'
   });
-  return JadwalPemupukan;
+  return RiwayatPemupukan;
 };
