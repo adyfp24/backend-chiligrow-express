@@ -74,7 +74,7 @@ const addJadwal = async (req, res) => {
         }
         const newJadwal = await pemupukanService.cJadwalService(dataJadwal);
         if(newJadwal){
-            pemupukanService.scheduleTask(selang_hari, selang_jam);
+            pemupukanService.scheduleTask(selang_hari, selang_jam, user_id);
             res.status(201).json({
                 success: true,
                 message: 'Jadwal pemupukan berhasil ditambahkan',
