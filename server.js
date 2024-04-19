@@ -27,3 +27,4 @@ app.listen(PORT, () => {
   console.log((new Date()) + ' Server is listening on port ' + PORT);
 });
 
+module.exports = app;
