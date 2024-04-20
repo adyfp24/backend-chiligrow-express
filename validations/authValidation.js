@@ -1,7 +1,7 @@
 const Joi = require('joi');
 
 const registUser = {
-    body: joi.object().keys({
+    body: Joi.object().keys({
         username: Joi.string().required().max(100),
         email: Joi.string().required().email().max(100),
         password: Joi.string().required().max(100),
@@ -11,7 +11,7 @@ const registUser = {
 };
 
 const loginUser = {
-    body: joi.object().keys({
+    body: Joi.object().keys({
         username: Joi.string().required().max(100),
         password: Joi.string().required().max(100),
     })
