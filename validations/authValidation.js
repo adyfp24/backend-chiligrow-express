@@ -10,7 +10,14 @@ const registUser = {
     })
 };
 
+const loginUser = {
+    body: joi.object().keys({
+        username: Joi.string().required().max(100),
+        password: Joi.string().required().max(100),
+    })
+}
+
 module.exports = {
     registUser,
-    
+    loginUser
 }
