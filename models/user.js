@@ -54,6 +54,10 @@ module.exports = (sequelize, DataTypes) => {
     role: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    foto_profile: {
+      type: DataTypes.STRING,
+      allowNull: true
     }
   }, {
     sequelize,
