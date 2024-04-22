@@ -1,5 +1,6 @@
 const profileService = require('../services/profileService');
 const { upload } = require('../middlewares/multer');
+const fs = require('fs');
 
 const getProfile = async (req, res) => {
     try {
@@ -79,6 +80,20 @@ const addProfileImage = async (req, res) => {
     try {
         const id_user = req.user.id_user;
         const fileName = req.file.filename;
+
+        const userProfile = await profileService.rProfileService(id_user);
+        const previousImage = userProfile.foto_profile;
+        console.log(previousImage);
+        if(previousImage !== null){
+            const previousProfileImage = __basedir + '/uploads/' + previousImage;
+            try {
+                fs.unlinkSync(previousProfileImage);
+                console.log('File foto profil sebelumnya berhasil dihapus.');
+            } catch (error) {
+                console.error('Terjadi kesalahan saat menghapus file foto profil sebelumnya:', error);
+            }
+        }
+
         const uploadedProfile = await profileService.cProfileImage(id_user, fileName);
         if(uploadedProfile){
             return res.status(200).json({

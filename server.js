@@ -10,6 +10,8 @@ const simulasiRoute = require('./routes/simulasiRoute');
 const profileRoute = require('./routes/profileRoute');
 const pemupukanRoute = require('./routes/pemupukanRoute');
 
+global.__basedir = __dirname;
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
