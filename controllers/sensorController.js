@@ -17,7 +17,7 @@ const readSensor = async (req, res) => {
 
 const updateSensor = async (req, res) => {
     try {
-        const kelembapan = parseInt(req.body.kelembapan);
+        const kelembapan = parseInt(req.body.nilai_kelembapan);
         const newKelembapan = await sensorService.updateHumidity(1, kelembapan);
         if(newKelembapan){
             res.status(200).json({
