@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
-const schedule = require('node-schedule');
 
 const authRoute = require('./routes/authRoute');
 const sensorRoute = require('./routes/sensorRoute');
@@ -17,11 +16,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
 app.use(bodyParser.json());
 
-app.use('/api/v1',authRoute);
-app.use('/api/v1',sensorRoute);
-app.use('/api/v1',simulasiRoute);
-app.use('/api/v1',profileRoute);
-app.use('/api/v1',pemupukanRoute);
+app.use('/api/v1', authRoute);
+app.use('/api/v1', sensorRoute);
+app.use('/api/v1', simulasiRoute);
+app.use('/api/v1', profileRoute);
+app.use('/api/v1', pemupukanRoute);
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./docs/swagger-output.json');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const PORT = process.env.PORT || 4000;
 

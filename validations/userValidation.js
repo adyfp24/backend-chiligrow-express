@@ -14,5 +14,4 @@ const updateProfile = {
 
 module.exports = {
     updateProfile,
-    addProfileImage
 }
