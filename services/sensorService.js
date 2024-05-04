@@ -2,12 +2,14 @@ const Sensor = require('../models').Sensor;
 
 const readHumidity = async (id) => {
     try {
-        const lastSensorData = await Sensor.findOne({
-            where: { id_sensor: id },
-            order: [['createdAt', 'DESC']]
-        });
+        const lastSensorData = 30;
+        // const lastSensorData = await Sensor.findOne({
+        //     where: { id_sensor: id },
+        //     order: [['createdAt', 'DESC']]
+        // });
         return lastSensorData;
     } catch (error) {
+        console.log(error);
         throw new Error('Failed to find last sensor data');
     }
 }
