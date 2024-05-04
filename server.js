@@ -22,6 +22,10 @@ app.use('/api/v1', simulasiRoute);
 app.use('/api/v1', profileRoute);
 app.use('/api/v1', pemupukanRoute);
 
+app.get('/', (req,res) => {
+  res.send('welcome to chiligrow-api');
+})
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./docs/swagger-output.json');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
