@@ -6,9 +6,9 @@ describe('Test auth API Endpoints', () => {
     const res = await request(app)
       .post('/api/v1/register')
       .send({
-        username: 'test04',
+        username: 'test05',
         email: 'testuser@example.com',
-        password: 'password123',
+        password: '123',
         no_hp: '123456789',
         alamat: 'Test Address',
         role: 'petani',
@@ -17,7 +17,7 @@ describe('Test auth API Endpoints', () => {
     expect(res.statusCode).toEqual(201);
     expect(res.body.success).toEqual(true);
     expect(res.body.message).toEqual('registrasi sukses');
-    expect(res.body.data.username).toEqual('test04');
+    expect(res.body.data.username).toEqual('test05');
     
   });
 
@@ -25,7 +25,7 @@ describe('Test auth API Endpoints', () => {
     const res = await request(app)
       .post('/api/v1/login')
       .send({
-        username: 'test03',
+        username: 'test05',
         password: '123'
       });
     expect(res.statusCode).toEqual(201);

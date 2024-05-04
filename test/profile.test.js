@@ -6,7 +6,7 @@ describe('Test profile API endpoint', () => {
         const authRes = await request(app)
             .post('/api/v1/login')
             .send({
-                username: 'test03',
+                username: 'test05',
                 password: '123'
             });
         
@@ -19,7 +19,7 @@ describe('Test profile API endpoint', () => {
         
         expect(res.statusCode).toEqual(200);
         expect(res.body.success).toEqual(true);
-        expect(res.body.data.username).toEqual('test02');
+        expect(res.body.data.username).toEqual('test05');
     });
 
     it('should return 401 unauthorized without authorization token', async () => {
