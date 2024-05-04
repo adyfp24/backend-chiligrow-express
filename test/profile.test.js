@@ -9,8 +9,7 @@ describe('Test profile API endpoint', () => {
                 username: 'test05',
                 password: '123'
             });
-        
-        
+            
         const authToken = authRes.header('Authorization').split(' ')[1];
 
         const res = await request(app)
