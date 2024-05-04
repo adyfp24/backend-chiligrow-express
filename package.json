@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage",
     "swagger": "node ./docs/swagger.js"
   },
