@@ -6,7 +6,7 @@ const doc = {
     title: 'Chili-grow API',
     description: 'REST API for chili-grow project'
   },
-  host: 'localhost:' + process.env.PORT
+  host: 'chiligrow-api.up.railway.app'
 };
 
 const outputFile = './swagger-output.json';
