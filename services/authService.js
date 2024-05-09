@@ -1,11 +1,12 @@
 const User = require('../models').User;
 const bcrypt = require('bcrypt');
 const utilsToken = require('../utils/signToken');
+const utilsMail = require('../utils/sendMail');
 
 const registerService = async (userData) => {
     try {
-        const isUsernameExist = await User.findOne({where: {username: userData.username}});
-        if(isUsernameExist){
+        const isUsernameExist = await User.findOne({ where: { username: userData.username } });
+        if (isUsernameExist) {
             return { success: false, message: 'username sudah digunakan' };
         }
         const hashedPassword = await bcrypt.hash(userData.password, 10);
@@ -48,8 +49,24 @@ const logoutService = async () => {
 
 }
 
-const getOTP = async () => {
+const getOTP = async (otp, id_user) => {
+    try {
+        const user = await User.findOne({ where: { id_user: id_user } });
+        if (user) {
+            user.otp = otp;
+            user.save();
+        }
+        const sendEmail = utilsMail.sendMail(user.email, otp);
+        if (sendEmail) {
+            return true;
+        }else{
+            return false;
+        } 
 
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed to send email otp');
+    }
 }
 
 const verifyOTP = async () => {
@@ -60,4 +77,6 @@ module.exports = {
     registerService,
     loginService,
     logoutService,
+    getOTP,
+    verifyOTP
 } 
