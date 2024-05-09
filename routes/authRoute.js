@@ -5,9 +5,12 @@ const authValidation = require('../validations/authValidation');
 const registController = require('../controllers/auth/registController');
 const loginController = require('../controllers/auth/loginController');
 const logoutController = require('../controllers/auth/logoutController');
+const forgetController = require('../controllers/auth/forgetController');
 
 router.post('/register', validate(authValidation.registUser), registController.register);
 router.post('/login', validate(authValidation.loginUser), loginController.login);
 router.post('/logout', logoutController.logout);
+router.get('/forget', forgetController.getOTP);
+router.post('/verify-otp', forgetController.verifyOTP);
 
 module.exports = router; 

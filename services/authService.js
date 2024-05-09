@@ -48,6 +48,14 @@ const logoutService = async () => {
 
 }
 
+const getOTP = async () => {
+
+}
+
+const verifyOTP = async () => {
+
+}
+
 module.exports = {
     registerService,
     loginService,
