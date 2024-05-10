@@ -5,15 +5,15 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: process.env.MAIL_NAME, 
-        pass: process.env.MAIL_PASS
+        user: 'adyfp24@gmail.com', 
+        pass: 'Bismillah24.'
     }
 });
 
 const sendMail = async (email, otp) => {
 
     const mailOptions = {
-        from: process.env.MAIL_NAME, 
+        from: 'adyfp24@gmail.com', 
         to: email,
         subject: 'Reset Password OTP',
         text: `Your OTP for password reset is: ${otp}`
