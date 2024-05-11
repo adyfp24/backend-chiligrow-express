@@ -1,5 +1,19 @@
-const create = () => {
+const HasilSimulasi = require('../models/').HasilSimulasi;
+const JenisBibit = require('../models').JenisBibit;
 
+const save = async (id_user, data) => {
+    const { jenis_bibit, ...remainingData } = data;
+    const bibit_id = await JenisBibit.findOne({ where: { jenis_bibit: jenis_bibit } }).jenis_bibit_id;
+    const saveResult = await HasilSimulasi.create({
+        ...remainingData,
+        jenis_bibit_id: bibit_id,
+        user_id: id_user
+    })
+    if(saveResult){
+        return true
+    }else{
+        return false
+    } 
 }
 
 const getResult = (luas_lahan, jenis_bibit) => {
@@ -34,7 +48,6 @@ const getResult = (luas_lahan, jenis_bibit) => {
 
 
 module.exports = {
-    create,
+    save,
     getResult,
-
 }
