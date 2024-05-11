@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const simulasiController = require('../controllers/simulasiController');
+const { verifyToken } = require('../middlewares/validateToken');
 
-router.post('/simulasi', simulasiController.createSimulasi);
+router.post('/simulasi', verifyToken, simulasiController.createSimulasi);
 
 module.exports = router;
