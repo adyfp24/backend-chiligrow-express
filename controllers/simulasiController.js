@@ -9,7 +9,7 @@ const createSimulasi = (req, res) => {
 
         const hasilSimulasi = simulasiService.getResult(luas_lahan, jenis_bibit);
        
-        // const saveSimulasiData = simulasiService.createService(dataSimulasi);
+        const saveSimulasiData = simulasiService.createService(hasilSimulasi);
         res.status(200).json({ 
             success: true, 
             message:"data simulasi berhasil dbuat", 
@@ -24,16 +24,7 @@ const createSimulasi = (req, res) => {
     }
 }
 
-const getAllSimulasi = () => {
-
-}
-
-const getSimulasiById = () => {
-
-}  
 
 module.exports = {
     createSimulasi,
-    getAllSimulasi,
-    getSimulasiById
 }

@@ -17,21 +17,20 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      debit_air: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       jumlah_bibit: {
         type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      pupuk_urea: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      jenis_pupuk_id: {
-        type: Sequelize.BIGINT,
+      pupuk_npk: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        references:{
-          model:'Jenis_Pupuks',
-          key: 'id_jenis_pupuk'
-        }
+      },
+      volume_air: {
+        type: Sequelize.INTEGER
       },
       jenis_bibit_id: {
         type: Sequelize.BIGINT,

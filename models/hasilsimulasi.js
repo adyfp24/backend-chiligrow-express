@@ -4,16 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class HasilSimulasi extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      HasilSimulasi.belongsTo(models.JenisPupuk, {
-        foreignKey: 'jenis_pupuk_id',
-        as: 'jenis_pupuk'
-      });
       HasilSimulasi.belongsTo(models.JenisBibit, {
         foreignKey: 'jenis_bibit_id',
         as: 'jenis_bibit'
@@ -47,19 +38,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    jenis_pupuk_id: {
-      type: DataTypes.BIGINT,
+    pupuk_urea: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      references:{
-        model:'Jenis_pupuks',
-        key: 'id_jenis_pupuk'
-      }
+    },
+    pupuk_npk: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    volume_air: {
+      type: DataTypes.INTEGER
     },
     jenis_bibit_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
       references:{
-        model:'Jenis_bibits',
+        model:'Jenis_Bibits',
         key: 'id_jenis_bibit'
       }
     },
