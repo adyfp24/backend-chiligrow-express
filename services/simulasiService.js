@@ -1,20 +1,29 @@
 const HasilSimulasi = require('../models/').HasilSimulasi;
 const JenisBibit = require('../models').JenisBibit;
 
+
 const save = async (id_user, data) => {
-    const { jenis_bibit, ...remainingData } = data;
-    const bibit_id = await JenisBibit.findOne({ where: { jenis_bibit: jenis_bibit } }).jenis_bibit_id;
-    const saveResult = await HasilSimulasi.create({
-        ...remainingData,
-        jenis_bibit_id: bibit_id,
-        user_id: id_user
-    })
-    if(saveResult){
-        return true
-    }else{
-        return false
-    } 
-}
+    try {
+        const { jenis_bibit, ...remainingData } = data;
+        const bibit = await JenisBibit.findOne({ where: { jenis_bibit: jenis_bibit } });
+        if (!bibit) {
+            throw new Error('Jenis bibit tidak ditemukan');
+        }
+        const saveResult = await HasilSimulasi.create({
+            ...remainingData,
+            jenis_bibit_id: bibit.id_jenis_bibit,
+            user_id: id_user
+        });
+        if (saveResult) {
+            return true;
+        } else {
+            throw new Error('Gagal menyimpan data');
+        }
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+};
 
 const getResult = (luas_lahan, jenis_bibit) => {
 
@@ -38,16 +47,17 @@ const getResult = (luas_lahan, jenis_bibit) => {
         luas_lahan,
         jenis_bibit,
         jumlah_bibit,
+        kuantitas_pupuk,
         pupuk_npk,
         pupuk_urea,
         volume_air
     };
 
     return dataSimulasi
-}
+};
 
 
 module.exports = {
     save,
     getResult,
-}
+};

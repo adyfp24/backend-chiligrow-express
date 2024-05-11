@@ -30,10 +30,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    debit_air: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     jumlah_bibit: {
       type: DataTypes.INTEGER,
       allowNull: false,

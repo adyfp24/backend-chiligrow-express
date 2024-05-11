@@ -1,6 +1,6 @@
 const simulasiService = require('../services/simulasiService');
 
-const createSimulasi = (req, res) => {
+const createSimulasi = async (req, res) => {
     try {
         const id_user = req.user.id_user;
         const {
@@ -10,17 +10,17 @@ const createSimulasi = (req, res) => {
 
         const hasilSimulasi = simulasiService.getResult(luas_lahan, jenis_bibit);
        
-        const saveSimulasiData = simulasiService.save(id_user, hasilSimulasi);
+        const saveSimulasiData = await simulasiService.save(id_user, hasilSimulasi);
         if(saveSimulasiData){
             res.status(200).json({ 
                 success: true, 
-                message:"data simulasi berhasil dbuat", 
+                message:"Data simulasi berhasil dibuat", 
                 data: hasilSimulasi
             });
         } else{
             res.status(400).json({ 
                 success: false, 
-                message:"data simulasi gagal dibuat", 
+                message:"Data simulasi gagal dibuat", 
             });
         }
     } catch (error) {
@@ -31,7 +31,6 @@ const createSimulasi = (req, res) => {
         });
     }
 }
-
 
 module.exports = {
     createSimulasi,
