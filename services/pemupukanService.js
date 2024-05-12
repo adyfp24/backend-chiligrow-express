@@ -1,4 +1,5 @@
 const JadwalPemupukan = require('../models').JadwalPemupukan;
+const RiwayatPemupukan = require('../models/').RiwayatPemupupukan;
 const schedule = require('node-schedule');
 
 const cJadwalService = async (dataJadwal) => {
@@ -88,10 +89,15 @@ const uJadwalService = async (id_jadwal, dataJadwal) => {
     }
 }
 
+const rAllHistroy = async () => {
+
+}
+
 module.exports = {
     cJadwalService,
     rJadwalService,
     rAllJadwalService,
     uJadwalService,
-    scheduleTask
+    scheduleTask,
+    rAllHistroy
 }

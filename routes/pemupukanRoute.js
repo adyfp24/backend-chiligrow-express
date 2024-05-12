@@ -8,6 +8,6 @@ router.get('/all-jadwal', verifyToken, pemupukanController.getAllJadwal);
 router.post('/jadwal-pemupukan', verifyToken, pemupukanController.addJadwal);
 router.put('/jadwal-pemupukan/:id_jadwal', verifyToken, pemupukanController.updateJadwal);
 router.delete('/jadwal-pemupukan/:id_jadwal', verifyToken, pemupukanController.deleteJadwal);
-router.get('/riwayat-pemupukan');
+router.get('/riwayat-pemupukan', verifyToken, pemupukanController.getHistory);
 
 module.exports = router;

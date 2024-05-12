@@ -8,6 +8,10 @@ const pompaOf = () => {
     
 }
 
+const getHistory = async (req,res) => {
+
+}
+
 const getJadwal = async (req, res) => {
     try {
         const user_id = req.user.id_user;
@@ -135,5 +139,6 @@ module.exports = {
     getAllJadwal,
     addJadwal,
     deleteJadwal,
-    updateJadwal
+    updateJadwal,
+    getHistory
 }
