@@ -11,6 +11,15 @@ const cJadwalService = async (dataJadwal) => {
     }
 }
 
+const cHistoryService = async () => {
+    try {
+        const newHistory = await RiwayatPemupukan.create();
+        return newHistory;
+    } catch (error) {
+        throw new Error('Failed to create new history pemupukan');
+    }
+}
+
 const scheduleTask = (selangHari, selangJam, user_id) => {
     try {
         const rule = new schedule.RecurrenceRule();
