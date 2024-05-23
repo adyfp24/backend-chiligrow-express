@@ -98,6 +98,17 @@ const uJadwalService = async (id_jadwal, dataJadwal) => {
     }
 }
 
+const dJadwalService = async (id_jadwal) => {
+    try {
+        const deletedJadwal = await JadwalPemupukan.destroy({
+            where: { id_jadwal_pemupukan : id_jadwal }
+        })
+        return deletedJadwal;
+    } catch (error) {
+        throw new Error('Failed to delete jadwal pemupukan')
+    }
+}
+
 const rAllHistroy = async () => {
 
 }
@@ -107,6 +118,7 @@ module.exports = {
     rJadwalService,
     rAllJadwalService,
     uJadwalService,
+    dJadwalService,
     scheduleTask,
     rAllHistroy
 }

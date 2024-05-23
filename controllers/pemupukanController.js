@@ -1,14 +1,6 @@
 const pemupukanService = require('../services/pemupukanService');
 
-const pompaOn = () => {
-
-}
-
-const pompaOf = () => {
-    
-}
-
-const getHistory = async (req,res) => {
+const getHistory = async (req, res) => {
 
 }
 
@@ -16,13 +8,13 @@ const getJadwal = async (req, res) => {
     try {
         const user_id = req.user.id_user;
         const dataJadwal = await pemupukanService.rJadwalService(user_id);
-        if(dataJadwal){
+        if (dataJadwal) {
             res.status(200).json({
                 success: true,
                 message: 'Jadwal pemupukan tersedia',
                 data: dataJadwal
             });
-        }else{
+        } else {
             res.status(400).json({
                 success: false,
                 message: 'Jadwal pemupukan gagal dimuat',
@@ -42,13 +34,13 @@ const getAllJadwal = async (req, res) => {
     try {
         const user_id = req.user.id_user;
         const allDataJadwal = await pemupukanService.rAllJadwalService(user_id);
-        if(allDataJadwal){
+        if (allDataJadwal) {
             res.status(200).json({
                 success: true,
                 message: 'Jadwal pemupukan tersedia',
                 data: allDataJadwal
             });
-        }else{
+        } else {
             res.status(400).json({
                 success: false,
                 message: 'Jadwal pemupukan gagal dimuat',
@@ -72,19 +64,19 @@ const addJadwal = async (req, res) => {
             selang_jam
         } = req.body;
         const dataJadwal = {
-            selang_hari, 
+            selang_hari,
             selang_jam,
             user_id
         }
         const newJadwal = await pemupukanService.cJadwalService(dataJadwal);
-        if(newJadwal){
+        if (newJadwal) {
             pemupukanService.scheduleTask(selang_hari, selang_jam, user_id);
             res.status(201).json({
                 success: true,
                 message: 'Jadwal pemupukan berhasil ditambahkan',
                 data: newJadwal
             });
-        }else{
+        } else {
             res.status(401).json({
                 success: false,
                 message: 'Jadwal pemupukan gagal ditambahkan',
@@ -100,18 +92,39 @@ const addJadwal = async (req, res) => {
     }
 };
 
-const deleteJadwal = () => {
-
+const deleteJadwal = async (req, res) => {
+    try {
+        const id_jadwal = req.params.id_jadwal;
+        const deletedJadwal = await pemupukanService.dJadwalService(id_jadwal);
+        if(deletedJadwal != 0){
+            res.status(200).json({
+                success: true,
+                message: 'Data jadwal berhasil dihapus',
+                data: updatedData,
+            });
+        }else{
+            res.status(400).json({
+                success: false,
+                message: 'data jadwal gagal dihapus',
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Terjadi kesalahan dalam server',
+        });
+    }
 }
 
 const updateJadwal = async (req, res) => {
     try {
-        const id_jadwal = req.params.id_jadwal; 
-        const updatedData = { selang_hari, selang_jam} = req.body;
+        const id_jadwal = req.params.id_jadwal;
+        const updatedData = { selang_hari, selang_jam } = req.body;
 
         const updatedJadwal = await pemupukanService.uJadwalService(id_jadwal, updatedData);
 
-        if (updatedJadwal) {
+        if (updatedJadwal != 0) {
             res.status(200).json({
                 success: true,
                 message: 'Data jadwal berhasil diperbarui',
