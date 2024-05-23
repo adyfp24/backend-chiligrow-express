@@ -100,7 +100,6 @@ const deleteJadwal = async (req, res) => {
             res.status(200).json({
                 success: true,
                 message: 'Data jadwal berhasil dihapus',
-                data: updatedData,
             });
         }else{
             res.status(400).json({
