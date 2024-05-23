@@ -146,8 +146,6 @@ const updateJadwal = async (req, res) => {
 }
 
 module.exports = {
-    pompaOf,
-    pompaOn,
     getJadwal,
     getAllJadwal,
     addJadwal,
