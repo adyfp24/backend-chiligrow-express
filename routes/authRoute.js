@@ -15,3 +15,4 @@ router.get('/forget', verifyToken, forgetController.getOTP);
 router.post('/verify-otp', verifyToken, forgetController.verifyOTP);
 
 module.exports = router; 
+
