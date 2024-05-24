@@ -1,7 +1,10 @@
 const otpGenerator = require('otp-generator');
 
 const generateOtp = () => {
-    const otp = otpGenerator.generate(6,  { digits: true, alphabets: false, specialChars: false })
+    let otp = '';
+    for (let i = 0; i < 6; i++) {
+        otp += Math.floor(Math.random() * 10); 
+    }
     return otp;
 }
 

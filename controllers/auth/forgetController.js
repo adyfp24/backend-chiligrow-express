@@ -1,42 +1,58 @@
 const authService = require('../../services/authService');
-const {generateOtp} = require('../../utils/generateOtp');
+const { generateOtp } = require('../../utils/generateOtp');
 
 const getOTP = async (req, res) => {
     try {
         const user = req.user;
-        if (!user) {
-            return res.status(401).json({
-                success: false,
-                message: 'Anda tidak terautentikasi',
-            });
-        }
         const otp = generateOtp();
         const sendEmail = await authService.getOTP(otp, user.id_user);
-        if(sendEmail){
+        if (sendEmail) {
             res.status(200).json({
                 success: true,
                 message: 'Email otp berhasil dikirimkan',
                 data: {
-                    otp:otp
+                    otp: otp
                 },
             });
-        }else{
+        } else {
             return res.status(400).json({
                 success: false,
                 message: 'gagal mengirim otp email',
-            }) 
+            })
         }
     } catch (error) {
-        return res.status(500).json({
+        console.error(error);
+        res.status(500).json({
             success: false,
-            message: error.message,
-        })
+            message: 'Terjadi kesalahan dalam server: ' + error,
+        });
     }
 
 }
 
-const verifyOTP = async (req, res ) => {
-
+const verifyOTP = async (req, res) => {
+    try {
+        const user = req.user;
+        const { otp } = req.body;
+        const isOtpValid = await authService.verifyOTP(otp, user.id_user);
+        if (isOtpValid) {
+            res.status(200).json({
+                success: true,
+                message: 'kode OTP sesuai',
+            });
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: 'kode otp tidak sesuai',
+            })
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Terjadi kesalahan dalam server: ' + error,
+        });
+    }
 }
 
 module.exports = {

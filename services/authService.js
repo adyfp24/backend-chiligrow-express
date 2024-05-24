@@ -54,7 +54,7 @@ const getOTP = async (otp, id_user) => {
         const user = await User.findOne({ where: { id_user: id_user } });
         if (user) {
             user.otp = otp;
-            user.save();
+            await user.save();
         }
         const sendEmail = utilsMail.sendMail(user.email, otp);
         if (sendEmail) {
@@ -69,8 +69,14 @@ const getOTP = async (otp, id_user) => {
     }
 }
 
-const verifyOTP = async () => {
-
+const verifyOTP = async (otp, id_user) => {
+    try {
+        const user = await User.findOne({ where: { id_user: id_user } });
+        return user.otp == otp;
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed verify otp');
+    }
 }
 
 module.exports = {

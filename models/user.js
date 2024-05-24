@@ -58,6 +58,10 @@ module.exports = (sequelize, DataTypes) => {
     foto_profile: {
       type: DataTypes.STRING,
       allowNull: true
+    },
+    otp :{
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
