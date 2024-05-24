@@ -11,3 +11,4 @@ router.put('/profile', verifyToken , validate(userValidation.updateProfile), pro
 router.post('/profile-image', verifyToken , upload.single('file'), profileController.addProfileImage);
 
 module.exports = router;
+

@@ -11,7 +11,7 @@ const createJadwal = {
 
 const updateJadwal = {
     body: Joi.object().keys({
-        id_jadwal: Joi.number().required(),
+        id_jadwal: Joi.optional(),
         selang_hari: Joi.number().required(),
         selang_jam: Joi.string().required(),
         user_id: Joi.optional()

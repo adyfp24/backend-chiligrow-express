@@ -5,10 +5,10 @@
     "description": "REST API for chili-grow project",
     "version": "1.0.0"
   },
-  "host": "chiligrow-api.up.railway.app",
+  "host": "localhost:4000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/": {
