@@ -49,14 +49,14 @@ const logoutService = async () => {
 
 }
 
-const getOTP = async (otp, id_user) => {
+const getOTP = async (otp, email) => {
     try {
-        const user = await User.findOne({ where: { id_user: id_user } });
+        const user = await User.findOne({ where: { email: email } });
         if (user) {
             user.otp = otp;
             await user.save();
         }
-        const sendEmail = utilsMail.sendMail(user.email, otp);
+        const sendEmail = utilsMail.sendMail(email, otp);
         if (sendEmail) {
             return true;
         }else{

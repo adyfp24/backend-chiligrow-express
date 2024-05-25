@@ -24,7 +24,14 @@ const loginUser = {
     })
 }
 
+const getOtp = {
+    body : Joi.object().keys({
+        email: Joi.string().required().email()
+    })
+}
+
 module.exports = {
     registUser,
-    loginUser
+    loginUser,
+    getOtp
 }

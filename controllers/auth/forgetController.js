@@ -3,9 +3,9 @@ const { generateOtp } = require('../../utils/generateOtp');
 
 const getOTP = async (req, res) => {
     try {
-        const user = req.user;
+        const { email } = req.body;
         const otp = generateOtp();
-        const sendEmail = await authService.getOTP(otp, user.id_user);
+        const sendEmail = await authService.getOTP(otp, email);
         if (sendEmail) {
             res.status(200).json({
                 success: true,
