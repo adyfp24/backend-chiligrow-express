@@ -79,10 +79,29 @@ const verifyOTP = async (otp, email) => {
     }
 }
 
+const resetPassword = async (email, password) => {
+    try {
+        const user = await User.findOne({ where: { email: email } });
+        if (!user) {
+            throw new Error('User not found');
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.password = hashedPassword;
+
+        const updatedPassword = await user.save();
+        return !!updatedPassword; 
+    } catch (error) {
+        console.log(error);
+        throw new Error('Failed to reset password: ' + error.message);
+    }
+}
+
+
 module.exports = {
     registerService,
     loginService,
     logoutService,
     getOTP,
-    verifyOTP
+    verifyOTP,
+    resetPassword
 } 

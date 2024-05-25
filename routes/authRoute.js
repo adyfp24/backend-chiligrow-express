@@ -13,6 +13,7 @@ router.post('/login', validate(authValidation.loginUser), loginController.login)
 router.post('/logout', logoutController.logout);
 router.post('/forget', validate(authValidation.getOtp), forgetController.getOTP);
 router.post('/verify-otp', validate(authValidation.verifyOTP), forgetController.verifyOTP);
+router.put('/reset-password', forgetController.resetPassword);
 
 module.exports = router; 
 

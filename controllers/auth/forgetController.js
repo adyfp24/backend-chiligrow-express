@@ -54,7 +54,32 @@ const verifyOTP = async (req, res) => {
     }
 }
 
+const resetPassword = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const isPassUpdated = await authService.resetPassword(email, password);
+        if (isPassUpdated) {
+            res.status(200).json({
+                success: true,
+                message: 'password berhasil diperbarui',
+            });
+        } else {
+            return res.status(400).json({
+                success: false,
+                message: 'password gagal diperbarui',
+            })
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Terjadi kesalahan dalam server: ' + error,
+        });
+    }
+}
+
 module.exports = {
     getOTP,
-    verifyOTP
+    verifyOTP,
+    resetPassword
 };
