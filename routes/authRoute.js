@@ -11,8 +11,8 @@ const { verifyToken } = require('../middlewares/validateToken');
 router.post('/register', validate(authValidation.registUser), registController.register);
 router.post('/login', validate(authValidation.loginUser), loginController.login);
 router.post('/logout', logoutController.logout);
-router.get('/forget', validate(authValidation.getOtp), forgetController.getOTP);
-router.post('/verify-otp', verifyToken, forgetController.verifyOTP);
+router.post('/forget', validate(authValidation.getOtp), forgetController.getOTP);
+router.post('/verify-otp', validate(authValidation.verifyOTP), forgetController.verifyOTP);
 
 module.exports = router; 
 

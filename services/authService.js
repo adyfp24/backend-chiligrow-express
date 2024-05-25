@@ -69,9 +69,9 @@ const getOTP = async (otp, email) => {
     }
 }
 
-const verifyOTP = async (otp, id_user) => {
+const verifyOTP = async (otp, email) => {
     try {
-        const user = await User.findOne({ where: { id_user: id_user } });
+        const user = await User.findOne({ where: { email: email } });
         return user.otp == otp;
     } catch (error) {
         console.log(error);

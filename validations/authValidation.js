@@ -30,8 +30,15 @@ const getOtp = {
     })
 }
 
+const verifyOTP = {
+    body: Joi.object().keys({
+        otp: Joi.number().required()
+    })
+}
+
 module.exports = {
     registUser,
     loginUser,
-    getOtp
+    getOtp,
+    verifyOTP
 }

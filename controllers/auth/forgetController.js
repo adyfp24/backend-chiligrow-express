@@ -32,9 +32,8 @@ const getOTP = async (req, res) => {
 
 const verifyOTP = async (req, res) => {
     try {
-        const user = req.user;
-        const { otp } = req.body;
-        const isOtpValid = await authService.verifyOTP(otp, user.id_user);
+        const { otp, email } = req.body;
+        const isOtpValid = await authService.verifyOTP(otp, email);
         if (isOtpValid) {
             res.status(200).json({
                 success: true,
