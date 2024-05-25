@@ -32,7 +32,8 @@ const getOtp = {
 
 const verifyOTP = {
     body: Joi.object().keys({
-        otp: Joi.number().required()
+        otp: Joi.number().required(),
+        email: Joi.string().required().email()
     })
 }
 
