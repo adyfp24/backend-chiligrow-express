@@ -35,6 +35,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.TIME,
       allowNull: false,
     },
+    status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
     user_id: {
       type: DataTypes.BIGINT,
       allowNull: false,
