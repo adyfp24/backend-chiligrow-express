@@ -1,5 +1,5 @@
 const JadwalPemupukan = require('../models').JadwalPemupukan;
-const RiwayatPemupukan = require('../models/').RiwayatPemupupukan;
+const RiwayatPemupukan = require('../models/').RiwayatPemupukan;
 const schedule = require('node-schedule');
 
 const cJadwalService = async (dataJadwal) => {
@@ -11,12 +11,13 @@ const cJadwalService = async (dataJadwal) => {
     }
 }
 
-const cHistoryService = async () => {
+const cHistoryService = async (waktu_pemupukan, jadwal_pemupukan_id) => {
     try {
-        const newHistory = await RiwayatPemupukan.create();
+        const data = { waktu_pemupukan, jadwal_pemupukan_id };
+        const newHistory = await RiwayatPemupukan.create(data);
         return newHistory;
     } catch (error) {
-        throw new Error('Failed to create new history pemupukan');
+        throw new Error('Failed to create new history pemupukan' + error);
     }
 }
 
@@ -52,7 +53,7 @@ const scheduleTask = (selangHari, selangJam, user_id) => {
 
         schedule.scheduleJob(firstSchedule, () => {
             console.log('Penjadwalan berhasil sesuai waktu yang ditentukan');
-            pompaOn(5);
+            pumpOn(5);
         });
     } catch (error) {
         console.error('Failed to schedule task:', error);
@@ -110,8 +111,16 @@ const dJadwalService = async (id_jadwal) => {
     }
 }
 
-const rAllHistroy = async () => {
-
+const rAllHistory = async (user_id) => {
+    try {
+        const allHistory = await RiwayatPemupukan.findAll({
+            where: {user_id : user_id},
+            order: [['createdAt', 'DESC']]
+        })
+        return allHistory;
+    } catch (error) {
+        throw new Error('Failed to read all history pemupukan') 
+    }
 }
 
 const pumpOn = async (user_id) => {
@@ -120,8 +129,20 @@ const pumpOn = async (user_id) => {
             where: {user_id : user_id}
         })
         const updatedJadwal = await jadwalPupuk.update({
-            status: 'true'
+            status: true
         })
+        const now = new Date();
+        cHistoryService(now, jadwalPupuk.id_jadwal_pemupukan);
+        setTimeout(async () => {
+            try {
+                await jadwalPupuk.update({
+                    status: false
+                });
+                console.log('Status successfully reset to false after 5 seconds');
+            } catch (error) {
+                console.error('Failed to reset pump status to false:', error);
+            }
+        }, 5000);
         return updatedJadwal
     } catch (error) {
         throw new Error('failed to change pump status')    
@@ -146,7 +167,7 @@ module.exports = {
     uJadwalService,
     dJadwalService,
     scheduleTask,
-    rAllHistroy,
+    rAllHistory,
     cHistoryService,
     pumpOn,
     rPumpService

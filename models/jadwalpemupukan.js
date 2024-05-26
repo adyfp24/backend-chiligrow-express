@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       });
       JadwalPemupukan.hasMany(models.RiwayatPemupukan, {
         foreignKey: 'jadwal_pemupukan_id',
-        as: 'riwayat_pemupukan'
+        as: 'riwayat_pemupukan',
+        onDelete: "CASCADE"
       });
     }
   }

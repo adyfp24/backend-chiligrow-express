@@ -1,7 +1,28 @@
 const pemupukanService = require('../services/pemupukanService');
 
 const getHistory = async (req, res) => {
-
+    try {
+        const user_id = req.user.id_user;
+        const dataHistory = await pemupukanService.rAllHistory(user_id) 
+        if (dataHistory) {
+            res.status(200).json({
+                success: true,
+                message: 'riwayat pemupukan tersedia',
+                data: dataHistory
+            });
+        } else {
+            res.status(400).json({
+                success: false,
+                message: 'riwayat pemupukan tidak tersedia',
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Terjadi kesalahan dalam server',
+        });
+    }
 }
 
 const getJadwal = async (req, res) => {

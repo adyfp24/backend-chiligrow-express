@@ -12,6 +12,7 @@ router.put('/jadwal-pemupukan/:id_jadwal', verifyToken, validate(pemupukanValida
 router.delete('/jadwal-pemupukan/:id_jadwal', verifyToken, pemupukanController.deleteJadwal);
 router.get('/riwayat-pemupukan', verifyToken, pemupukanController.getHistory);
 router.get('/pemupukan-status', pemupukanController.getPumpStatus);
+router.get('/riwayat-pemupukan', verifyToken, pemupukanController.getHistory);
 
 module.exports = router;
 
