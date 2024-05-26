@@ -52,7 +52,7 @@ const scheduleTask = (selangHari, selangJam, user_id) => {
 
         schedule.scheduleJob(firstSchedule, () => {
             console.log('Penjadwalan berhasil sesuai waktu yang ditentukan');
-            pompaOn()
+            pompaOn(5);
         });
     } catch (error) {
         console.error('Failed to schedule task:', error);
@@ -114,8 +114,18 @@ const rAllHistroy = async () => {
 
 }
 
-const pumpOn = () => {
-    console.log('pompa menyala abangku')
+const pumpOn = async (user_id) => {
+    try {
+        const jadwalPupuk = await JadwalPemupukan.findOne({
+            where: {user_id : user_id}
+        })
+        const updatedJadwal = await jadwalPupuk.update({
+            status: 'true'
+        })
+        return updatedJadwal
+    } catch (error) {
+        throw new Error('failed to change pump status')    
+    }
 }
 
 const rPumpService = async (user_id) => {
@@ -123,10 +133,9 @@ const rPumpService = async (user_id) => {
         const jadwalPupuk = await JadwalPemupukan.findOne({
             where: { user_id: user_id}
         })
-        const status = jadwalPupuk.status;
-        return status
+        return jadwalPupuk.status
     } catch (error) {
-        throw new Error('Failed to delete jadwal pemupukan')
+        throw new Error('Failed to read pump statis')
     }
 }
 
