@@ -23,15 +23,15 @@ const cHistoryService = async () => {
 const scheduleTask = (selangHari, selangJam, user_id) => {
     try {
         const rule = new schedule.RecurrenceRule();
-        
+
         const [hour, minute, second] = selangJam.split(':').map(Number);
 
         rule.hour = hour;
-        rule.minute = minute; 
-        rule.second = second || 0; 
+        rule.minute = minute;
+        rule.second = second || 0;
 
-        rule.dayOfWeek = null; 
-        rule.interval = selangHari; 
+        rule.dayOfWeek = null;
+        rule.interval = selangHari;
 
         const now = new Date();
         const currentHour = now.getHours();
@@ -52,6 +52,7 @@ const scheduleTask = (selangHari, selangJam, user_id) => {
 
         schedule.scheduleJob(firstSchedule, () => {
             console.log('Penjadwalan berhasil sesuai waktu yang ditentukan');
+            pompaOn()
         });
     } catch (error) {
         console.error('Failed to schedule task:', error);
@@ -63,7 +64,7 @@ const scheduleTask = (selangHari, selangJam, user_id) => {
 const rJadwalService = async (user_id) => {
     try {
         const dataJadwal = await JadwalPemupukan.findOne({
-            where: {user_id: user_id},
+            where: { user_id: user_id },
             order: [['createdAt', 'DESC']]
         })
         return dataJadwal;
@@ -76,7 +77,7 @@ const rJadwalService = async (user_id) => {
 const rAllJadwalService = async (user_id) => {
     try {
         const allDataJadwal = await JadwalPemupukan.findAll({
-            where: {user_id: user_id},
+            where: { user_id: user_id },
             order: [['createdAt', 'DESC']]
         })
         return allDataJadwal;
@@ -90,7 +91,7 @@ const uJadwalService = async (id_jadwal, dataJadwal) => {
     try {
         const updatedJadwal = await JadwalPemupukan.update(
             dataJadwal,
-            {where: {id_jadwal_pemupukan: id_jadwal}}
+            { where: { id_jadwal_pemupukan: id_jadwal } }
         );
         return updatedJadwal;
     } catch (error) {
@@ -101,7 +102,7 @@ const uJadwalService = async (id_jadwal, dataJadwal) => {
 const dJadwalService = async (id_jadwal) => {
     try {
         const deletedJadwal = await JadwalPemupukan.destroy({
-            where: { id_jadwal_pemupukan : id_jadwal }
+            where: { id_jadwal_pemupukan: id_jadwal }
         })
         return deletedJadwal;
     } catch (error) {
@@ -113,6 +114,22 @@ const rAllHistroy = async () => {
 
 }
 
+const pumpOn = () => {
+    console.log('pompa menyala abangku')
+}
+
+const rPumpService = async (user_id) => {
+    try {
+        const jadwalPupuk = await JadwalPemupukan.findOne({
+            where: { user_id: user_id}
+        })
+        const status = jadwalPupuk.status;
+        return status
+    } catch (error) {
+        throw new Error('Failed to delete jadwal pemupukan')
+    }
+}
+
 module.exports = {
     cJadwalService,
     rJadwalService,
@@ -120,5 +137,8 @@ module.exports = {
     uJadwalService,
     dJadwalService,
     scheduleTask,
-    rAllHistroy
+    rAllHistroy,
+    cHistoryService,
+    pumpOn,
+    rPumpService
 }

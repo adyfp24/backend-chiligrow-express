@@ -11,5 +11,7 @@ router.post('/jadwal-pemupukan', verifyToken, validate(pemupukanValidation.creat
 router.put('/jadwal-pemupukan/:id_jadwal', verifyToken, validate(pemupukanValidation.updateJadwal), pemupukanController.updateJadwal);
 router.delete('/jadwal-pemupukan/:id_jadwal', verifyToken, pemupukanController.deleteJadwal);
 router.get('/riwayat-pemupukan', verifyToken, pemupukanController.getHistory);
+router.get('/pemupukan-status', pemupukanController.getPumpStatus);
 
 module.exports = router;
+

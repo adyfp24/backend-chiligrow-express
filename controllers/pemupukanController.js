@@ -96,12 +96,12 @@ const deleteJadwal = async (req, res) => {
     try {
         const id_jadwal = req.params.id_jadwal;
         const deletedJadwal = await pemupukanService.dJadwalService(id_jadwal);
-        if(deletedJadwal != 0){
+        if (deletedJadwal != 0) {
             res.status(200).json({
                 success: true,
                 message: 'Data jadwal berhasil dihapus',
             });
-        }else{
+        } else {
             res.status(400).json({
                 success: false,
                 message: 'data jadwal gagal dihapus',
@@ -144,11 +144,38 @@ const updateJadwal = async (req, res) => {
     }
 }
 
+const getPumpStatus = async (req, res) => {
+    try {
+        const pumpStatus = await pemupukanService.rPumpService(5);
+        if (pumpStatus != null) {
+            res.status(200).json({
+                success: true,
+                message: 'status pompa berhasil didapat',
+                data: {
+                    status: pumpStatus
+                },
+            });
+        } else {
+            res.status(400).json({
+                success: false,
+                message: 'status pompa gagal didapat',
+            });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: 'Terjadi kesalahan dalam server',
+        });
+    }
+}
+
 module.exports = {
     getJadwal,
     getAllJadwal,
     addJadwal,
     deleteJadwal,
     updateJadwal,
-    getHistory
+    getHistory,
+    getPumpStatus
 }
