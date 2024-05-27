@@ -11,8 +11,9 @@ const cJadwalService = async (dataJadwal) => {
     }
 }
 
-const cHistoryService = async (waktu_pemupukan, jadwal_pemupukan_id) => {
+const cHistoryService = async (jadwal_pemupukan_id) => {
     try {
+        const waktu_pemupukan = new Date();
         const data = { waktu_pemupukan, jadwal_pemupukan_id };
         const newHistory = await RiwayatPemupukan.create(data);
         return newHistory;
@@ -53,7 +54,7 @@ const scheduleTask = (selangHari, selangJam, user_id) => {
 
         schedule.scheduleJob(firstSchedule, () => {
             console.log('Penjadwalan berhasil sesuai waktu yang ditentukan');
-            pumpOn(user_id);
+            pumpOn(5, user_id);
         });
     } catch (error) {
         console.error('Failed to schedule task:', error);
@@ -114,25 +115,32 @@ const dJadwalService = async (id_jadwal) => {
 const rAllHistory = async (user_id) => {
     try {
         const allHistory = await RiwayatPemupukan.findAll({
-            where: {user_id : user_id},
-            order: [['createdAt', 'DESC']]
+            include: [{
+                model: JadwalPemupukan,
+                as: 'jadwal_pemupukan',
+                where: { user_id: user_id },
+                attributes: ['id_jadwal_pemupukan', 'selang_jam', 'selang_hari', 'user_id'],
+            }]
         })
         return allHistory;
     } catch (error) {
-        throw new Error('Failed to read all history pemupukan') 
+        throw new Error('Failed to read all history pemupukan' + error)
     }
 }
 
-const pumpOn = async (user_id) => {
+const pumpOn = async (id, user_id) => {
     try {
         const jadwalPupuk = await JadwalPemupukan.findOne({
-            where: {user_id : user_id}
+            where: { user_id: id }
         })
         const updatedJadwal = await jadwalPupuk.update({
             status: true
         })
-        const now = new Date();
-        cHistoryService(now, jadwalPupuk.id_jadwal_pemupukan);
+        const trueJadwalPupuk = await JadwalPemupukan.findOne({
+            where: { user_id: user_id }
+        })
+
+        cHistoryService(trueJadwalPupuk.id_jadwal_pemupukan);
         setTimeout(async () => {
             try {
                 await jadwalPupuk.update({
@@ -145,18 +153,18 @@ const pumpOn = async (user_id) => {
         }, 5000);
         return updatedJadwal
     } catch (error) {
-        throw new Error('failed to change pump status')    
+        throw new Error('failed to change pump status')
     }
 }
 
 const rPumpService = async (user_id) => {
     try {
         const jadwalPupuk = await JadwalPemupukan.findOne({
-            where: { user_id: user_id}
+            where: { user_id: user_id }
         })
         return jadwalPupuk.status
     } catch (error) {
-        throw new Error('Failed to read pump statis')
+        throw new Error('Failed to read pump status' + error)
     }
 }
 

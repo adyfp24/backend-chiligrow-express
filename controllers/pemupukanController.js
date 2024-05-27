@@ -139,10 +139,13 @@ const deleteJadwal = async (req, res) => {
 
 const updateJadwal = async (req, res) => {
     try {
+        const user_id = req.user.id_user;
         const id_jadwal = req.params.id_jadwal;
         const updatedData = { selang_hari, selang_jam } = req.body;
 
         const updatedJadwal = await pemupukanService.uJadwalService(id_jadwal, updatedData);
+
+        pemupukanService.scheduleTask(selang_hari, selang_jam, user_id);
 
         if (updatedJadwal != 0) {
             res.status(200).json({

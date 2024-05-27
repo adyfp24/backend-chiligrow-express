@@ -9,6 +9,7 @@ const simulasiRoute = require('./routes/simulasiRoute');
 const profileRoute = require('./routes/profileRoute');
 const pemupukanRoute = require('./routes/pemupukanRoute');
 
+process.env.TZ = 'Asia/Jakarta';
 global.__basedir = __dirname;
 
 app.use(cors());

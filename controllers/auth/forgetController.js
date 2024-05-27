@@ -1,9 +1,18 @@
 const authService = require('../../services/authService');
 const { generateOtp } = require('../../utils/generateOtp');
+const User = require('../../models').User;
 
 const getOTP = async (req, res) => {
     try {
         const { email } = req.body;
+        const user = await User.findOne({ where: { email: email } });
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: 'Email tidak terdaftar',
+            });
+        }
+        
         const otp = generateOtp();
         const sendEmail = await authService.getOTP(otp, email);
         if (sendEmail) {
