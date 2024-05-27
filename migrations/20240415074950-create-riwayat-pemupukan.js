@@ -18,7 +18,7 @@ module.exports = {
         allowNull: false,
         references:{
           model:'Jadwal_Pemupukans',
-          key: 'id_jadwal_pemupukan'
+          key: 'id_jadwal_pemupukan',
         }
       },
       createdAt: {

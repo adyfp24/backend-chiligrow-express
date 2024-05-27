@@ -53,7 +53,7 @@ const scheduleTask = (selangHari, selangJam, user_id) => {
 
         schedule.scheduleJob(firstSchedule, () => {
             console.log('Penjadwalan berhasil sesuai waktu yang ditentukan');
-            pumpOn(5);
+            pumpOn(user_id);
         });
     } catch (error) {
         console.error('Failed to schedule task:', error);
@@ -107,7 +107,7 @@ const dJadwalService = async (id_jadwal) => {
         })
         return deletedJadwal;
     } catch (error) {
-        throw new Error('Failed to delete jadwal pemupukan')
+        throw new Error('Failed to delete jadwal pemupukan' + error)
     }
 }
 
