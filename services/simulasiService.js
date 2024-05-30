@@ -31,16 +31,16 @@ const getResult = (luas_lahan, jenis_bibit) => {
 
     if (jenis_bibit == "rawit") {
         jumlah_bibit = luas_lahan / 0.3;
-        kuantitas_pupuk = jumlah_bibit * 160;
+        kuantitas_pupuk = jumlah_bibit * 160 / 1000000;
         pupuk_urea = kuantitas_pupuk / 2;
         pupuk_npk = kuantitas_pupuk / 2;
-        volume_air = jumlah_bibit * 100;
+        volume_air = jumlah_bibit * 100 / 1000;
     } else if (jenis_bibit == "merah") {
         jumlah_bibit = luas_lahan / 0.2;
-        kuantitas_pupuk = jumlah_bibit * 160;
+        kuantitas_pupuk = jumlah_bibit * 160 / 1000000;
         pupuk_urea = kuantitas_pupuk / 2;
         pupuk_npk = kuantitas_pupuk / 2;
-        volume_air = jumlah_bibit * 100;
+        volume_air = jumlah_bibit * 100 / 1000;
     };
 
     const dataSimulasi = {
