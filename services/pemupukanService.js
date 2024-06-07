@@ -150,7 +150,7 @@ const pumpOn = async (id, user_id) => {
             } catch (error) {
                 console.error('Failed to reset pump status to false:', error);
             }
-        }, 5000);
+        }, 10000);
         return updatedJadwal
     } catch (error) {
         throw new Error('failed to change pump status')
